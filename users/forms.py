@@ -23,3 +23,8 @@ class ChangePasswordForm(PasswordChangeForm):
             self.fields[fieldname].help_text = None
         
 
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ['first_name', 'last_name', 'patronymic', 
+                  'phone_number', 'email', 'description']

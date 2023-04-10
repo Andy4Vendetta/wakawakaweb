@@ -1,10 +1,10 @@
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 from django.contrib.auth import login, get_user_model
 from django.urls import reverse_lazy
 
-from .forms import RegisterForm
+from .forms import RegisterForm, ProfileForm
 
 
 class RegisterView(CreateView):
@@ -24,10 +24,17 @@ class RegisterView(CreateView):
         return valid
 
 
-class ProfileView(LoginRequiredMixin, TemplateView):
+class ProfileView(LoginRequiredMixin, FormView):
+   model = get_user_model()
    template_name = 'users/profile.html'
+   form_class = ProfileForm
+   success_url = reverse_lazy('users:profile')
    
-   def get_context_data(self, **kwargs):
-       context = super().get_context_data(**kwargs)
-       context['user'] = self.request.user
-       return context
+   def get_form(self, form_class=None):
+       form = self.form_class(self.request.POST or None,
+           instance=self.request.user)
+       return form
+   
+   def form_valid(self, form):
+       form.save()
+       return super().form_valid(form)

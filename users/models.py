@@ -64,7 +64,6 @@ class User(AbstractBaseUser):
     )
     description = models.TextField(
         verbose_name='описание',
-        
     )
     customer = models.BooleanField(
         verbose_name='заказчик',
