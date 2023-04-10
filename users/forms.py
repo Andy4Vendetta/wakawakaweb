@@ -11,7 +11,8 @@ class RegisterForm(UserCreationForm):
             
     class Meta:
         model = get_user_model()
-        fields = ['email', 'first_name', 'last_name', 'password1', 'password2']
+        fields = ['email', 'first_name', 'last_name', 
+                  'password1', 'password2', 'customer']
         
 
 class ChangePasswordForm(PasswordChangeForm):

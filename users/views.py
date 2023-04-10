@@ -15,7 +15,7 @@ class RegisterView(CreateView):
     
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect('app:subject_list')
+            return redirect('app:main')
         return super().dispatch(request, *args, **kwargs)
     
     def form_valid(self, form):

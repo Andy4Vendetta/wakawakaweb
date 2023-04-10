@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'phonenumber_field',
     'users',
     'app',
 ]
@@ -108,10 +109,10 @@ MEDIA_URL = '/media/'
 # Auth
 AUTH_USER_MODEL = 'users.User'
 
-LOGIN_REDIRECT_URL = reverse_lazy('app:subject_list')
+LOGIN_REDIRECT_URL = reverse_lazy('app:main')
 
 LOGIN_URL = reverse_lazy('users:login')
 
-LOGOUT_REDIRECT_URL = reverse_lazy('app:subject_list')
+LOGOUT_REDIRECT_URL = reverse_lazy('app:main')
 
 LOGOUT_URL = reverse_lazy('users:logout')

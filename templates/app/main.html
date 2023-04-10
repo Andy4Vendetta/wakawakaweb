@@ -4,13 +4,5 @@
     Main
 {% endblock %}
 {% block content %}
-    Main page
-    {% for book in books %}
-        <p>
-            {{ book.title }}
-            {{ book.pages }}
-            {{ book.author }}
-            <img src="{{ book.image.url}}" alt="img">
-        </p>
-    {% endfor %}
+    MainPage
 {% endblock %}
