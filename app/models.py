@@ -73,6 +73,9 @@ class ServiceResponse(models.Model):
         default=False,
     )
     
+    def __str__(self):
+        return f'{self.user} | {self.service_request.title}'
+    
     def clean(self) -> None:
         super().clean()
         if self.user.is_customer:
