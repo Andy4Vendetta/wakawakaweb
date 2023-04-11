@@ -6,7 +6,7 @@
 {% block content %}
     <ul>
         {% for request in requests %}
-        <li>{{ request }}</li>
+        <li><a href="{{ request.get_absolute_url }}">{{ request }}</a></li>
     {% endfor %}
     </ul>    
 {% endblock %}

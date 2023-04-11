@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block tilte %}
+    Main
+{% endblock %}
+{% block content %}
+<ul>
+    {% for response in responses %}
+    <li><a href="{{ response.get_absolute_url }}">{{ response }}</a></li>
+{% endfor %}
+</ul>       
+{% endblock %}

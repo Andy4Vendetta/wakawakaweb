@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 
 
 class ServiceRequest(models.Model):
@@ -37,7 +38,6 @@ class ServiceRequest(models.Model):
     def __str__(self) -> str:
         return f'{self.title} | {self.customer}'
     
-    
     def clean(self) -> None:
         super().clean()
         if not self.price_from < self.price_to:
@@ -46,7 +46,10 @@ class ServiceRequest(models.Model):
         if not self.customer.is_customer:
             raise ValidationError('Пользователь должен быть заказчиком')
         
+    def get_absolute_url(self):
+        return reverse('app:request_detail', kwargs={'pk':self.pk})
         
+
 class ServiceResponse(models.Model):
     service_request = models.ForeignKey(
         verbose_name='запрос на услугу',
@@ -80,3 +83,6 @@ class ServiceResponse(models.Model):
         super().clean()
         if self.user.is_customer:
             raise ValidationError('Пользователь должен быть исполнителем')
+        
+    def get_absolute_url(self):
+        return reverse('app:response_detail', kwargs={'pk':self.pk})
