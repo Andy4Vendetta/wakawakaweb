@@ -33,11 +33,12 @@ DEBUG=True
 SECRET_KEY=ydtwxqz$-061oq351gj08wy4o1lj44^jlp-ilmj3x*w_!%b5dt
 ALLOWED_HOSTS=localhost,127.0.0.1,79.137.207.11,109.195.147.68
 ```
+After that, run:
 ```sh
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
-python manage.py runserver
+gunicorn -b 127.0.0.1:8080 config.wsgi
 ```
 ## Manual updating
 You should be in venv to run these commands (`source venv/bin/activate` for Unix-like systems and `venv\Scripts\activate` for Windows)

@@ -3,9 +3,57 @@
 	padding: 0;
 	box-sizing: border-box;
 }
+body {
+    background: #D9D9D9;
+}
+header {
+    border-bottom: solid 2px #373737;
+    background: #FFFFFF;
+    position: fixed;
+    top: 0;
+    align-items: center;
+    align-content: center;
+    width: 100%;
+    padding: 1.2em;
+}
+header div {
+    position: relative;
+    display: flex;
+    align-items: center;
+    left: 15%;
+    max-width: 70%;
+    height: 50px;
+}
+header div img {
+    display: flex;
+    margin-right: 25px;
+    margin-left: 25px;
+}
+header div left {
+    display: flex;
+    float: left;
+}
+header div right {
+    display: flex;
+    float: right;
+    margin-left: auto;
+}
+.change-my-color {
+    transition: 0.5s;
+    cursor: pointer;
+}
+.change-my-color.active {
+    filter: invert(81%) sepia(8%) saturate(2657%) hue-rotate(121deg) brightness(84%) contrast(84%);
+}
+.change-my-color:hover {
+    filter: invert(81%) sepia(8%) saturate(2657%) hue-rotate(121deg) brightness(84%) contrast(84%);
+}
+.change-my-color:after {
+    filter: invert(81%) sepia(8%) saturate(2657%) hue-rotate(121deg) brightness(84%) contrast(84%);
+}
 footer {
     border-top: solid 2px #373737;
-    background: #EEEEEE;
+    background: #FFFFFF;
     position: fixed;
     text-align: center;
     bottom: 0;
