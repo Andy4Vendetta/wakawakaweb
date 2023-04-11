@@ -55,6 +55,12 @@ class ServiceRequest(models.Model):
         related_name='requests',
         on_delete=models.CASCADE,
     )
+    archived = models.BooleanField(
+        verbose_name='в архиве',
+        blank=False,
+        null=False,
+        default=False,
+    )
     
     def __str__(self) -> str:
         return f'{self.title} | {self.customer}'
@@ -78,6 +84,9 @@ class ServiceRequest(models.Model):
     
     def get_delete_url(self):
         return reverse('app:my_requests_delete', kwargs={'pk':self.pk})
+    
+    def get_archived_url(self):
+        return reverse('app:my_requests_archived', kwargs={'pk':self.pk})
 
 class ServiceResponse(models.Model):
     service_request = models.ForeignKey(
