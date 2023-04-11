@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from django.views.generic import (ListView, DetailView, FormView, 
                                   TemplateView, RedirectView)
 from django.views.generic.detail import SingleObjectMixin
