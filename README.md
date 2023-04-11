@@ -21,7 +21,7 @@ gunicorn -b 127.0.0.1:8080 config.wsgi
 ## Windows:
 ```sh
 python -m venv venv
-source venv/Source/activate
+source venv/Scripts/activate
 pip install -r requirements.txt
 echo DEBUG=True >> .env
 ABOB=$(python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())')
@@ -33,7 +33,7 @@ python manage.py createsuperuser
 gunicorn -b 127.0.0.1:8080 config.wsgi
 ```
 # Manual update
-You should be in venv to run these commands (`source venv/bin/activate` for Unix-like systems and `source venv/Source/activate` for Windows)
+You should be in venv to run these commands (`source venv/bin/activate` for Unix-like systems and `source venv/Scripts/activate` for Windows)
 ## Linux/MacOS:
 To manually collect static, make migrations and start server run:
 ```sh
