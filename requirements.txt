@@ -3,3 +3,4 @@ django-environ
 Pillow
 django-phonenumber-field[phonenumbers]
 gunicorn
+django-filter

@@ -3,9 +3,10 @@ from django.views.generic import (ListView, DetailView, FormView,
 from django.views.generic.detail import SingleObjectMixin
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import redirect
 
-from .models import ServiceRequest, ServiceResponse
-from .forms import ServiceRequestForm, ServiceResponseForm
+from .models import Category, ServiceRequest, ServiceResponse
+from .forms import ServiceRequestForm, ServiceResponseForm, ServiceRequestSnippetFilter
 
 
 class MainView(RedirectView):
@@ -24,13 +25,35 @@ class ServiceRequestListView(LoginRequiredMixin, ListView):
     template_name = 'app/request_list.html'
     context_object_name = 'requests'
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        context['filter'] = ServiceRequestSnippetFilter(self.request.GET, queryset=self.get_queryset())
+        return context
     
+    
+class ServiceRequestFilteredListView(LoginRequiredMixin, ListView):
+    model = ServiceRequest
+    template_name = 'app/request_list.html'
+    context_object_name = 'requests'
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(category__id=self.kwargs['pk'])
+        
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        context['filter'] = ServiceRequestSnippetFilter(self.request.GET, queryset=self.get_queryset())
+        return context
+
+
 class ServiceRequestDetailView(LoginRequiredMixin, DetailView):
     model = ServiceRequest
     template_name = 'app/request_detail.html'
     context_object_name = 'request'
-    
-    
+
+
 class ServiceRequestCreateView(LoginRequiredMixin, FormView):
     model = ServiceRequest
     template_name = 'app/request_create.html'
@@ -38,18 +61,25 @@ class ServiceRequestCreateView(LoginRequiredMixin, FormView):
     success_url = reverse_lazy('app:main')
     
     def get_form(self, form_class=None):
-            form = self.form_class(self.request.POST or None,
-                                user=self.request.user)
-            return form
+        form = self.form_class(self.request.POST or None,
+                            user=self.request.user)
+        return form
     
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
     
+    
 class ServiceResponseListView(LoginRequiredMixin, ListView):
     model = ServiceResponse
     template_name = 'app/response_list.html'
     context_object_name = 'responses'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if self.request.user.is_customer:
+            return queryset.filter(service_request__customer=self.request.user)
+        return queryset.filter(user=self.request.user)
 
 
 class ServiceResponseDetailView(LoginRequiredMixin, DetailView):
@@ -64,8 +94,6 @@ class ServiceResponseDetailView(LoginRequiredMixin, DetailView):
         return obj
     
     
-
-
 class ServiceResponseCreateView(LoginRequiredMixin, SingleObjectMixin, FormView):
     model = ServiceRequest
     template_name = 'app/response_create.html'
@@ -91,7 +119,7 @@ class ServiceResponseCreateView(LoginRequiredMixin, SingleObjectMixin, FormView)
         return form
     
     
-class NotificationsView(ListView):
+class NotificationsView(LoginRequiredMixin, ListView):
     model = ServiceResponse
     template_name = 'app/notifications.html'
     context_object_name = 'responses'
@@ -102,3 +130,51 @@ class NotificationsView(ListView):
             watched=False
         )
         return queryset
+    
+    
+class MyRequestsListView(LoginRequiredMixin, ListView):
+    model = ServiceRequest
+    template_name = 'app/my_requests_list.html'
+    context_object_name = 'requests'
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(
+            customer=self.request.user
+        )
+        
+    
+class ServiceRequestEditView(LoginRequiredMixin, SingleObjectMixin, FormView):
+    model = ServiceRequest
+    template_name = 'app/my_requests_edit.html'
+    form_class = ServiceRequestForm
+    success_url = reverse_lazy('app:my_requests')
+    context_object_name = 'request'
+    
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().get(request, *args, **kwargs)
+    
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        return super().post(request, *args, **kwargs)
+    
+    def get_form(self, form_class=None):
+            form = self.form_class(self.request.POST or None, instance=self.object)
+            return form
+    
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+
+class ServiceRequestDeleteView(LoginRequiredMixin, SingleObjectMixin, RedirectView):
+    url = reverse_lazy('app:my_requests')
+    model = ServiceRequest
+    
+    def get(self, request, *args, **kwargs,):
+        obj = self.get_object()
+        if not obj.customer == self.request.user:
+            return redirect('app:main')
+        obj.delete()
+        return super().get(request, *args, **kwargs)

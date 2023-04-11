@@ -2,7 +2,7 @@ from django.urls import path
 
 from .views import (ServiceRequestListView, ServiceRequestDetailView, ServiceRequestCreateView,
                     ServiceResponseListView, ServiceResponseDetailView, ServiceResponseCreateView,
-                    InfoView, MainView, NotificationsView)
+                    InfoView, MainView, NotificationsView, ServiceRequestFilteredListView, MyRequestsListView, ServiceRequestEditView, ServiceRequestDeleteView)
 
 
 urlpatterns = [
@@ -21,9 +21,21 @@ urlpatterns = [
      path('requests/<int:pk>/', 
           ServiceRequestDetailView.as_view(), 
           name='request_detail'),
+     path('requests/filter/<int:pk>', 
+          ServiceRequestFilteredListView.as_view(), 
+          name='request_list_filtered'),
      path('requests/create/', 
           ServiceRequestCreateView.as_view(), 
           name='request_create'),
+     path('my_requests/', 
+          MyRequestsListView.as_view(),
+          name='my_requests'),
+     path('my_requests/edit/<int:pk>/', 
+          ServiceRequestEditView.as_view(), 
+          name='my_requests_edit'),
+     path('my_requests/delete/<int:pk>/', 
+          ServiceRequestDeleteView.as_view(), 
+          name='my_requests_delete'),
      path('responses/',
           ServiceResponseListView.as_view(),
           name='response_list'),

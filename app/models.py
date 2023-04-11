@@ -4,6 +4,20 @@ from django.core.exceptions import ValidationError
 from django.urls import reverse
 
 
+class Category(models.Model):
+    name = models.CharField(
+        verbose_name='название',
+        max_length=50,
+        blank=False,
+        null=False
+    )
+    
+    def __str__(self):
+        return str(self.name)
+
+    def get_absolute_url(self):
+        return reverse('app:request_list_filtered', kwargs={'pk':self.pk})
+
 class ServiceRequest(models.Model):
     title = models.CharField(
         verbose_name='заголовок',
@@ -34,6 +48,13 @@ class ServiceRequest(models.Model):
         related_name='service_requests',
         on_delete=models.CASCADE,
     )
+    category = models.ForeignKey(
+        verbose_name='категория',
+        blank=False,
+        to=Category,
+        related_name='requests',
+        on_delete=models.CASCADE,
+    )
     
     def __str__(self) -> str:
         return f'{self.title} | {self.customer}'
@@ -51,6 +72,12 @@ class ServiceRequest(models.Model):
         
     def get_url_to_create_response(self):
         return reverse('app:response_create', kwargs={'pk':self.pk})
+    
+    def get_edit_url(self):
+        return reverse('app:my_requests_edit', kwargs={'pk':self.pk})
+    
+    def get_delete_url(self):
+        return reverse('app:my_requests_delete', kwargs={'pk':self.pk})
 
 class ServiceResponse(models.Model):
     service_request = models.ForeignKey(
