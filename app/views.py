@@ -16,7 +16,7 @@ class MainView(RedirectView):
         return reverse_lazy('app:info')
 
 
-class InfoView(LoginRequiredMixin, TemplateView):
+class InfoView(TemplateView):
     template_name = 'app/info.html'
 
 
