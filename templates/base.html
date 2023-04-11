@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <link rel="icon"  href="{% static 'images/logo.png' %}">
+    <link rel="icon"  href="{% static 'images/logo.svg' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     <title>{% block title %}{% endblock %}</title>
 </head>
@@ -14,38 +14,26 @@
     <header>
             <div>
                 <left>
-                    {% with url_name=HttpRequest.path %}
                     <a href="{% url 'app:main' %}">
-                    <img class="change-my-color {% if url_name == '' %}active{% endif %}" src="{% static 'images/info.svg' %}" width="55" height="55" />
+                    <img src="{% static 'images/logo.svg' %}" width="55" height="55" />
                     </a>
-                    {% endwith %}
-                    {% with url_name=HttpRequest.path %}
-                    <a href="{% url 'app:request_list' %}">
-                    <img class="change-my-color {% if url_name == '/orders' %}active{% endif %}" src="{% static 'images/orders.svg' %}" width="41" height="53" />
-                    </a>
-                    {% endwith %}
                 </left>
                 <right>
-                    {% with url_name=HttpRequest.path %}
                     <a href="{% url 'app:request_create' %}">
-                    <img class="change-my-color {% if url_name == '/neworder]' %}active{% endif %}" src="{% static 'images/add.svg' %}" width="48" height="61" />
+                    <img class="change-my-color {% if request.path == '/requests/create/' %}active{% endif %}" src="{% static 'images/add.svg' %}" width="48" height="61" />
                     </a>
-                    {% endwith %}
-                    {% with url_name=HttpRequest.path %}
+                    <a href="{% url 'app:request_list' %}">
+                        <img class="change-my-color {% if request.path == '/requests/' %}active{% endif %}" src="{% static 'images/orders.svg' %}" width="41" height="53" />
+                    </a>
                     <a href="{% url 'app:info' %}">
-                    <img class="change-my-color {% if url_name == '/pins]' %}active{% endif %}" src="{% static 'images/pin.svg' %}" width="42" height="56" />
+                    <img class="change-my-color {% if request.path == '/pins' %}active{% endif %}" src="{% static 'images/pin.svg' %}" width="42" height="56" />
                     </a>
-                    {% endwith %}
-                    {% with url_name=HttpRequest.path %}
                     <a href="{% url 'app:notifications' %}">
-                    <img class="change-my-color {% if url_name == '/notifs]' %}active{% endif %}" src="{% static 'images/notif.svg' %}" width="55" height="55" />
+                    <img class="change-my-color {% if request.path == '/notifications/' %}active{% endif %}" src="{% static 'images/notif.svg' %}" width="55" height="55" />
                     </a>
-                    {% endwith %}
-                    {% with url_name=HttpRequest.path %}
                     <a href="{% url 'users:profile' %}">
-                    <img class="change-my-color {% if url_name == '/profile]' %}active{% endif %}" src="{% static 'images/profile.svg' %}" width="55" height="55" />
+                    <img class="change-my-color {% if request.path == '/user/' or request.path == '/user/login/' or request.path == '/user/register/' %}active{% endif %}" src="{% static 'images/profile.svg' %}" width="55" height="55" />
                     </a>
-                    {% endwith %}
                 </right>
             </div>
         <!--Код хедера-->
