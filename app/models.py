@@ -49,6 +49,8 @@ class ServiceRequest(models.Model):
     def get_absolute_url(self):
         return reverse('app:request_detail', kwargs={'pk':self.pk})
         
+    def get_url_to_create_response(self):
+        return reverse('app:response_create', kwargs={'pk':self.pk})
 
 class ServiceResponse(models.Model):
     service_request = models.ForeignKey(

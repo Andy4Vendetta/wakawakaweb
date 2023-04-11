@@ -115,3 +115,12 @@ LOGIN_URL = reverse_lazy('users:login')
 LOGOUT_REDIRECT_URL = reverse_lazy('app:main')
 
 LOGOUT_URL = reverse_lazy('users:logout')
+
+
+# Mail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'wakawakaweb@gmail.com'
+EMAIL_HOST_PASSWORD = 'rlpypmpkynlzskeb'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
