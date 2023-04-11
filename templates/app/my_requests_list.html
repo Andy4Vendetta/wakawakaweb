@@ -8,5 +8,13 @@
         {% for request in requests %}
             <li><a href="{{ request.get_edit_url }}">{{ request }}</a></li>
         {% endfor %}
-    </ul>   
+    </ul> 
+    <br>
+    <hr>
+    <br>
+    <ul> 
+        {% for request in requests_archived %}
+            <li><a href="{{ request.get_edit_url }}">{{ request }}</a></li>
+        {% endfor %}
+    </ul> 
 {% endblock %}

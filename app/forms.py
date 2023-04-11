@@ -11,12 +11,14 @@ class ServiceRequestForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'customer':forms.HiddenInput(),
+            'archived':forms.HiddenInput(),
         }
         
     def __init__(self, data, user=None, *args, **kwargs):
         super(ServiceRequestForm, self).__init__(data, *args, **kwargs)
         self.customer = user
         self.fields['customer'].initial = user
+        self.fields['archived'].initial = False
 
 
 class ServiceResponseForm(forms.ModelForm):
@@ -30,7 +32,7 @@ class ServiceResponseForm(forms.ModelForm):
         }
     def __init__(self, data, service_request=None, user=None, *args, **kwargs):
         super(ServiceResponseForm, self).__init__(data, *args, **kwargs)
-        self.fields['service_request'].initial =service_request
+        self.fields['service_request'].initial = service_request
         self.fields['user'].initial = user
         self.fields['watched'].initial = False
         

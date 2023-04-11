@@ -25,22 +25,12 @@ class ServiceRequestListView(LoginRequiredMixin, ListView):
     template_name = 'app/request_list.html'
     context_object_name = 'requests'
     
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['categories'] = Category.objects.all()
-        context['filter'] = ServiceRequestSnippetFilter(self.request.GET, queryset=self.get_queryset())
-        return context
-    
-    
-class ServiceRequestFilteredListView(LoginRequiredMixin, ListView):
-    model = ServiceRequest
-    template_name = 'app/request_list.html'
-    context_object_name = 'requests'
-    
     def get_queryset(self):
-        queryset = super().get_queryset()
+        queryset = super().get_queryset().filter(archived=False)
+        if not self.kwargs.get('pk', None):
+            return queryset
         return queryset.filter(category__id=self.kwargs['pk'])
-        
+    
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
@@ -142,6 +132,12 @@ class MyRequestsListView(LoginRequiredMixin, ListView):
         return queryset.filter(
             customer=self.request.user
         )
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['requests'] = self.get_queryset().filter(archived=False)
+        context['requests_archived'] = self.get_queryset().filter(archived=True)
+        return context
         
     
 class ServiceRequestEditView(LoginRequiredMixin, SingleObjectMixin, FormView):
@@ -177,4 +173,17 @@ class ServiceRequestDeleteView(LoginRequiredMixin, SingleObjectMixin, RedirectVi
         if not obj.customer == self.request.user:
             return redirect('app:main')
         obj.delete()
+        return super().get(request, *args, **kwargs)
+    
+
+class ServiceRequestArchivedView(LoginRequiredMixin, SingleObjectMixin, RedirectView):
+    url = reverse_lazy('app:my_requests')
+    model = ServiceRequest
+    
+    def get(self, request, *args, **kwargs,):
+        obj = self.get_object()
+        if not obj.customer == self.request.user:
+            return redirect('app:main')
+        obj.archived = True
+        obj.save()
         return super().get(request, *args, **kwargs)
