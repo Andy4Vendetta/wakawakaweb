@@ -9,4 +9,4 @@ echo ALLOWED_HOSTS=localhost,127.0.0.1,79.137.207.11,109.195.147.68 >> .env
 python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
-gunicorn -b 127.0.0.1:8080 config.wsgi
+python manage.py runserver
