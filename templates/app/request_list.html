@@ -4,9 +4,17 @@
     Main
 {% endblock %}
 {% block content %}
-    <ul>
-        {% for request in requests %}
-        <li><a href="{{ request.get_absolute_url }}">{{ request }}</a></li>
+    {% for category in categories %}
+        <a href="{{ category.get_absolute_url}}">{{ category }}</a>
     {% endfor %}
-    </ul>    
+    <a href="{% url 'app:request_list' %}">Все</a>
+    <ul>
+        {% for request in filter.qs %}
+        <li><a href="{{ request.get_absolute_url }}">{{ request }}</a></li>
+        {% endfor %}
+    </ul>
+    <form method="GET">
+        {{ filter.form.as_p }}
+        <button type="submit">Искать</button>
+    </form>
 {% endblock %}

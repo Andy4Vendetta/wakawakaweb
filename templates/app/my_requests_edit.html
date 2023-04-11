@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Main
+{% endblock %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Изменить</button>
+    </form>
+    <a href="{{ request.get_delete_url }}">Удалить</a>
+    <a href="{{ request.get_archived_url }}">Завершить</a>
+{% endblock %}

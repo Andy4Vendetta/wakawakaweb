@@ -5,5 +5,5 @@
 {% endblock %}
 {% block content %}
     {{ request }}
-    <a href=#>Откликнуться</a>
+    <a href="{{ request.get_url_to_create_response }}">Откликнуться</a>
 {% endblock %}

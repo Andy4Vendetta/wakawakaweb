@@ -1,38 +1,43 @@
 from django import forms
+from django.core.exceptions import ValidationError
+from django_filters import FilterSet
 
-from .models import ServiceRequest, ServiceResponse
+from .models import Category, ServiceRequest, ServiceResponse
 
 
-class ServiceRequestForm(forms.Form):
-    title = forms.CharField()
-    description = forms.CharField(widget=forms.Textarea)
-    price_from = forms.DecimalField(min_value=0)
-    price_to = forms.DecimalField(min_value=0)
-    place = forms.CharField(widget=forms.Textarea)
-    term = forms.DecimalField(min_value=0)
+class ServiceRequestForm(forms.ModelForm):
+    class Meta:
+        model = ServiceRequest
+        fields = '__all__'
+        widgets = {
+            'customer':forms.HiddenInput(),
+            'archived':forms.HiddenInput(),
+        }
         
-    def __init__(self, data, user, *args, **kwargs):
+    def __init__(self, data, user=None, *args, **kwargs):
         super(ServiceRequestForm, self).__init__(data, *args, **kwargs)
         self.customer = user
-    
-    def save(self, commit=True):
-        return ServiceRequest.objects.create(
-            **self.cleaned_data,
-            customer=self.customer,
-        )
-    
-class ServiceResponseForm(forms.Form):
-    text = forms.CharField(widget=forms.Textarea)
-    def __init__(self, data, service_request, user, *args, **kwargs):
+        self.fields['customer'].initial = user
+        self.fields['archived'].initial = False
+
+
+class ServiceResponseForm(forms.ModelForm):
+    class Meta:
+        model = ServiceResponse
+        fields = '__all__'
+        widgets = {
+            'service_request':forms.HiddenInput(),
+            'user':forms.HiddenInput(),
+            'watched':forms.HiddenInput(),
+        }
+    def __init__(self, data, service_request=None, user=None, *args, **kwargs):
         super(ServiceResponseForm, self).__init__(data, *args, **kwargs)
-        self.service_request = service_request
-        self.user = user
+        self.fields['service_request'].initial = service_request
+        self.fields['user'].initial = user
+        self.fields['watched'].initial = False
         
-    
-    def save(self, commit=True):
-        return ServiceResponse.objects.create(
-            service_request = self.service_request,
-            user = self.user,
-            text = self.cleaned_data['text'],
-            watched=False
-        )
+        
+class ServiceRequestSnippetFilter(FilterSet):
+    class Meta:
+        model = ServiceRequest
+        fields = {'title': ['icontains']}
