@@ -2,14 +2,33 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+    font-family: raleway;
+}
+@font-face {
+    font-family: raleway;
+    src: url("../fonts/raleway-regular.woff2");
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: raleway-black;
+    src: url("../fonts/raleway-black.woff2");
+    font-weight: normal;
+    font-style: normal;
 }
 body {
     background: #D9D9D9;
+    min-height: 100%;
 }
 main {
     position: relative;
-    top: 100px;
+    align-items: center;
+    align-content: center;
+    -ms-flex-align: center;
+    top: 160px;
     bottom: 100px;
+    padding-left: 15%;
+    padding-right: 15%;
 }
 header {
     border-bottom: solid 2px #373737;
@@ -61,6 +80,7 @@ header div right {
 footer {
     border-top: solid 2px #373737;
     background: #FFFFFF;
+    z-index: 9999;
     position: fixed;
     text-align: center;
     bottom: 0;
@@ -68,10 +88,27 @@ footer {
     padding: 2em;
 }
 .container {
+    width: 100%;
+    border-radius: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.conta {
     position: relative;
     width: 100%;
-    height: 500px;
+    height: 60vh;
     background: #FFFFFF;
     border: 1px solid #5F5F5F;
     border-radius: 15px;
+    margin-right: 20px;
+}
+.swiper {
+    width: 80%;
+    height: fit-content;
+}
+.swiper-slide .container {
+    width: 100%;
 }

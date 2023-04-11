@@ -4,7 +4,87 @@
     Info
 {% endblock %}
 {% block content %}
-    <div class="container">
-
+<div class="container">
+    <div class="swiper">
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+          <!-- Slides -->
+          <div class="swiper-slide" style="margin-right: 25px;">
+            <div class="conta">
+                <div style="text-align: center; margin-top: 30px;">
+                    <p style="font-size: 45px;">
+                        Добро пожаловать!
+                    </p>
+                </div>
+                <div style="display: flex; margin: 60px; align-items:center; justify-content:center;">
+                    <img src="{% static 'images/infoslide1.png' %}" style="width: 50vh;">
+                    <p style="display: flex; line-height: 30px; font-size: 20px; margin: 30px; text-align: justify; text-justify: distribute;">
+                        Вы попали на наш сервис поиска специалистов по оказанию услуг! Для исполнителей это отличная возможность получить заказы от крупных компаний, а для заказчиков - выполнить поставленную цель в срок руками квалифицированных специалистов.
+                    </p>
+                </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="conta">
+                <div style="text-align: center; margin-top: 30px;">
+                    <p style="font-size: 45px;">
+                        Для исполнителей
+                    </p>
+                </div>
+                <div style="display: flex; margin: 60px; align-items:center; justify-content:center;">
+                    <img src="{% static 'images/infoslide3.png' %}" style="width: 50vh;">
+                    <p style="display: flex; line-height: 30px; font-size: 20px; margin: 30px; text-align: justify; text-justify: distribute;">
+                        Если вы исполнитель, перед вами открывается прекрасная возможность показать свои способности и откликнуться на доступные вакансии с обеспеченной оплатой труда.
+                    </p>
+                </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="conta">
+                <div style="text-align: center; margin-top: 30px;">
+                    <p style="font-size: 45px;">
+                        Удобный поиск
+                    </p>
+                </div>
+                <div style="display: flex; margin: 60px; align-items:center; justify-content:center;">
+                    <img src="{% static 'images/infoslide2.png' %}" style="width: 50vh;">
+                    <p style="display: flex; line-height: 30px; font-size: 20px; margin: 30px; text-align: justify; text-justify: distribute;">
+                        Удобный поиск услуг и работодателей. Каждая заявка относится к определенным категориям, по которым вы можете отфильтровать все доступные заказы. Абсолютно каждый найдет себе здесь работу!
+                    </p>
+                </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="conta">
+                <div style="text-align: center; margin-top: 30px;">
+                    <p style="font-size: 45px;">
+                        Для заказчиков
+                    </p>
+                </div>
+                <div style="display: flex; margin: 60px; align-items:center; justify-content:center;">
+                    <img src="{% static 'images/infoslide4.png' %}" style="width: 50vh;">
+                    <p style="display: flex; line-height: 30px; font-size: 20px; margin: 30px; text-align: justify; text-justify: distribute;">
+                        Если вы ищете тех, кто может помочь вам с проектом, создайте запрос с помощью готовой формы уже сейчас! Для этого вам нужно зарегистрировать аккаунт типа “Заказчик”.
+                    </p>
+                </div>
+            </div>
+          </div>
+        </div>
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
     </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script>
+        const swiper = new Swiper('.swiper', {
+  // Optional parameters
+
+  // Navigation arrows
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev',
+  },
+});
+    </script>
 {% endblock %}
