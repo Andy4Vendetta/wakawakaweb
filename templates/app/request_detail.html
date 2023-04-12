@@ -7,12 +7,25 @@
 <div class="conta" style="padding: 35px; height: fit-content;">
     Детали заказа
     <hr style="margin: 20px;">
-    <p>Задача: {{ request.title }}</p><br>
-    <p>Категория: {{ request.category }}</p><br>
-    <p>Цена: от {{ request.price_from }} руб. до {{ request.price_to }} руб.</p><br>
-    <p>Заказчик: <a href="mailto:{{ request.customer }}">{{ request.customer }}</a></p><br>
-    <p>Место: {{ request.place }}</p><br>
-    <p>Описание: {{ request.description }}</p><br>
+    <div style="display: flex; width: 100%;">
+        <div>
+            <p>Задача: {{ request.title }}</p><br>
+            <p>Категория: {{ request.category }}</p><br>
+            <p>Цена: от {{ request.price_from }} руб. до {{ request.price_to }} руб.</p><br>
+            <p>Заказчик: <a href="mailto:{{ request.customer }}">{{ request.customer }}</a></p><br>
+            <p>Место: {{ request.place }}</p><br>
+            <p>Срок выполнения: {{ request.term }} дней</p><br>
+            <p>Описание: {{ request.description }}</p><br>
+        </div>
+        <div style="margin: 7vh;">
+            <iframe width="320" height="192" style="border-radius: 15px;"
+            src="{{ request.video }}">
+            </iframe> 
+        </div>
+        <div style="display: flex; float: right; margin-left: auto; margin-bottom: 50px;">
+            <img src="{{ request.image.url }}" style="max-width: 300px; height: fit-content; margin-left: auto;">
+        </div>
+    </div>
     {% if not user.is_customer %}
     <div style="display: flex; float: right; margin-left: auto;">
         <div class="regbutton" style="margin-right: 2vh; margin-top: -2vh; text-align: center"><a href="{{ request.get_url_to_create_response }}" style="color: white; text-decoration:none;">Откликнуться</a></div>
