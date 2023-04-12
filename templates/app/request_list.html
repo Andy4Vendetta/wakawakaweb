@@ -16,34 +16,33 @@
         <div style="display: flex;">
         {% if request.path == '/requests/' %}
         <div class="regbutton" style="display: flex; text-align: center; width: fit-content; margin-right: 15px;">
-            <a style="color: black; text-decoration:none;" href="{% url 'app:request_list' %}">Все</a>
+            <a style="color: rgb(255, 255, 255); text-decoration:none;" href="{% url 'app:request_list' %}">Все</a>
         </div>
         {% endif %}
         {% if not request.path == '/requests/' %}
         <div class="loginbutton" style="display: flex; text-align: center; width: fit-content; margin-right: 15px;">
-            <a style="color: black; text-decoration:none;" href="{% url 'app:request_list' %}">Все</a>
+            <a style="color: rgb(0, 0, 0); text-decoration:none;" href="{% url 'app:request_list' %}">Все</a>
         </div>
         {% endif %}
             {% for category in categories %}
-                    {% if request.path == '/requests/filter/ + {{id}}' %}
+                    {% if request.path == category.get_absolute_url %}
                         <div class="regbutton" style="display: flex; text-align: center; width: fit-content; margin-right: 15px;">
-                            <a style="color: black; text-decoration:none;" href="{{ category.get_absolute_url}}">{{ category }}</a>
+                            <a style="color: white; text-decoration:none;" href="{{ category.get_absolute_url}}">{{ category }}</a>
                         </div>
                     {% endif %}
-                    {% if not request.path == '/requests/filter/' %}
+                    {% if not request.path == category.get_absolute_url %}
                         <div class="loginbutton" style="display: flex; text-align: center; width: fit-content; margin-right: 15px;">
                             <a style="color: black; text-decoration:none;" href="{{ category.get_absolute_url}}">{{ category }}</a>
-                            <p>{{ request.path }}</p>
-                            <p>{{ category.id }}</p>
                         </div>
                     {% endif %}
             {% endfor %}
         </div>
         <br><br>
+        <hr style="margin: 20px;">
         <ul>
             {% for request in filter.qs %}
             <a style="text-decoration:none; color: black;" href="{{ request.get_absolute_url }}">
-            <div style="display: flex; padding-left: 30px; padding-right: 30px;">
+                <div style="display: flex; padding-left: 30px; padding-right: 30px;">
                 <img src="{% static 'images/profile.svg' %}" width="55" height="55" />
                 <p style="padding: 20px; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">{{ request.title }}</p>
                 <div style="display: flex; float: right; margin-left: auto; padding: 10px;">

@@ -4,9 +4,12 @@
     Main
 {% endblock %}
 {% block content %}
+<div class="conta" style="padding: 35px; height: fit-content;">
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Создать</button>
     </form>
+        <button class="regbutton" style="display: flex; text-align: center; width: fit-content; margin-right: 15px;" style="text-decoration:none;" href="{% url 'app:request_list' %}">
+            Создать
+        </button>
 {% endblock %}

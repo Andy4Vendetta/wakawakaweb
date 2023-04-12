@@ -4,9 +4,13 @@
     Profile
 {% endblock %}
 {% block content %}
-    <form method="post">
+<div class="conta" style="padding: 35px; height: fit-content;">
+    Профиль
+    <hr style="margin: 20px;">
+    <form action = "" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Изменить</button>
+        <button class="regbutton" style=" display: flex; color: rgb(255, 255, 255); text-decoration:none; text-align: center; width: fit-content; margin-right: 15px;" type="submit">Изменить</button>
     </form>
+</div>
 {% endblock %}
