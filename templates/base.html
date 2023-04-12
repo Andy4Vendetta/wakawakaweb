@@ -15,11 +15,14 @@
     <header>
             <div>
                 <left>
-                    <a href="{% url 'app:main' %}">
+                    <a href="{% url 'app:info' %}">
                     <img src="{% static 'images/logo.svg' %}" width="55" height="55" />
                     </a>
                 </left>
                 <right>
+                    <a href="{% url 'app:request_list' %}">
+                        <img class="change-my-color {% if request.path == '/requests/' %}active{% endif %}" src="{% static 'images/search.svg' %}" width="48" height="61" />
+                    </a>
                     {% if user.is_customer %}
                     <a href="{% url 'app:request_create' %}">
                         <img class="change-my-color {% if request.path == '/requests/create/' %}active{% endif %}" src="{% static 'images/add.svg' %}" width="48" height="61" />
