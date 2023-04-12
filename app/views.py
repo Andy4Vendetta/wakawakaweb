@@ -72,18 +72,6 @@ class ServiceResponseListView(LoginRequiredMixin, ListView):
         if self.request.user.is_customer:
             return queryset.filter(service_request__customer=self.request.user)
         return queryset.filter(user=self.request.user)
-
-
-class ServiceResponseDetailView(LoginRequiredMixin, DetailView):
-    model = ServiceResponse
-    template_name = 'app/response_detail.html'
-    context_object_name = 'response'
-    
-    def get_object(self, queryset=None):
-        obj = super().get_object(queryset)
-        obj.watched = True
-        obj.save()
-        return obj
     
     
 class ServiceResponseCreateView(LoginRequiredMixin, SingleObjectMixin, FormView):
