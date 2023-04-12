@@ -52,7 +52,9 @@ class ServiceRequestCreateView(LoginRequiredMixin, FormView):
     
     def get_form(self, form_class=None):
         form = self.form_class(self.request.POST or None,
-                            user=self.request.user)
+                               self.request.FILES or None,
+                                user=self.request.user)
+        print(self.request.FILES)
         return form
     
     def form_valid(self, form):
@@ -104,6 +106,7 @@ class ServiceResponseCreateView(LoginRequiredMixin, SingleObjectMixin, FormView)
     
     def get_form(self, form_class=None):
         form = self.form_class(self.request.POST or None,
+                               self.request.FILES or None,
                                service_request=self.object,
                                user=self.request.user)
         return form
@@ -149,7 +152,6 @@ class ServiceRequestEditView(LoginRequiredMixin, SingleObjectMixin, FormView):
     
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        print(request.META.get('HTTP_REFERER'))
         return super().get(request, *args, **kwargs)
     
     def post(self, request, *args, **kwargs):
@@ -157,7 +159,9 @@ class ServiceRequestEditView(LoginRequiredMixin, SingleObjectMixin, FormView):
         return super().post(request, *args, **kwargs)
     
     def get_form(self, form_class=None):
-            form = self.form_class(self.request.POST or None, instance=self.object)
+            form = self.form_class(self.request.POST or None,
+                                   self.request.FILES or None,
+                                   instance=self.object)
             return form
     
     def form_valid(self, form):

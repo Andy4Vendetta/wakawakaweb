@@ -40,7 +40,10 @@ class ServiceRequest(models.Model):
         verbose_name='место',
         blank=True,
     )
-    term = models.PositiveIntegerField()
+    term = models.PositiveIntegerField(
+        verbose_name='срок выполения (дней)',
+        blank=False
+    )
     customer = models.ForeignKey(
         verbose_name='заказчик',
         blank=False,
@@ -60,6 +63,14 @@ class ServiceRequest(models.Model):
         blank=False,
         null=False,
         default=False,
+    )
+    image = models.ImageField(
+        verbose_name='фото',
+        upload_to='request_images/'
+    )
+    video = models.URLField(
+        verbose_name='ссылка на видео',
+        max_length=100,
     )
     
     def __str__(self) -> str:
@@ -118,6 +129,14 @@ class ServiceResponse(models.Model):
         blank=False,
         null=False,
         default=False,
+    )
+    image = models.ImageField(
+        verbose_name='фото',
+        upload_to='response_images/'
+    )
+    video = models.URLField(
+        verbose_name='ссылка на видео',
+        max_length=100,
     )
     
     def __str__(self):

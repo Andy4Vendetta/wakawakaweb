@@ -14,9 +14,8 @@ class ServiceRequestForm(forms.ModelForm):
             'archived':forms.HiddenInput(),
         }
         
-    def __init__(self, data, user=None, *args, **kwargs):
-        super(ServiceRequestForm, self).__init__(data, *args, **kwargs)
-        self.customer = user
+    def __init__(self, data, files, user=None, *args, **kwargs):
+        super(ServiceRequestForm, self).__init__(data, files, *args, **kwargs)
         self.fields['customer'].initial = user
         self.fields['archived'].initial = False
 
@@ -30,8 +29,8 @@ class ServiceResponseForm(forms.ModelForm):
             'user':forms.HiddenInput(),
             'watched':forms.HiddenInput(),
         }
-    def __init__(self, data, service_request=None, user=None, *args, **kwargs):
-        super(ServiceResponseForm, self).__init__(data, *args, **kwargs)
+    def __init__(self, data, files, service_request=None, user=None, *args, **kwargs):
+        super(ServiceResponseForm, self).__init__(data, files, *args, **kwargs)
         self.fields['service_request'].initial = service_request
         self.fields['user'].initial = user
         self.fields['watched'].initial = False

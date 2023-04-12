@@ -5,7 +5,7 @@
 {% endblock %}
 {% block content %}
 <div class="conta" style="padding: 35px; height: fit-content;">
-    <form method="post">
+    <form method="post", enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button class="regbutton" style="display: flex; text-align: center; width: fit-content; margin-right: 15px;" 
