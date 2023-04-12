@@ -6,8 +6,8 @@
 {% block content %}
 <div class="conta" style="padding: 35px; height: fit-content;">
     Откликнуться
-    <hr style="margin: 20px;">
-    <form method="post">
+    <hr style="margin: 20px;">    
+<form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <br>
