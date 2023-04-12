@@ -24,16 +24,26 @@
                         <img class="change-my-color {% if request.path == '/requests/create/' %}active{% endif %}" src="{% static 'images/add.svg' %}" width="48" height="61" />
                     </a>
                     {% endif %}
-
-                    <a href="{% url 'app:request_list' %}">
-                        <img class="change-my-color {% if request.path == '/requests/' %}active{% endif %}" src="{% static 'images/orders.svg' %}" width="41" height="53" />
+                    {% if user.is_customer %}
+                    <a href="{% url 'app:my_requests' %}">
+                        <img class="change-my-color {% if request.path == '/my_requests/' %}active{% endif %}" src="{% static 'images/orders.svg' %}" width="41" height="53" />
                     </a>
+                    {% endif %}
+                    {% if not user.is_customer %}
+                    <a href="{% url 'app:response_list' %}">
+                        <img class="change-my-color {% if request.path == '/responses/' %}active{% endif %}" src="{% static 'images/orders.svg' %}" width="41" height="53" />
+                    </a>
+                    {% endif %}
+                    {% if not user.is_customer %}
                     <a href="{% url 'app:bookmarks' %}">
-                    <img class="change-my-color {% if request.path == '/pins' %}active{% endif %}" src="{% static 'images/pin.svg' %}" width="42" height="56" />
+                    <img class="change-my-color {% if request.path == '/bookmarks/' %}active{% endif %}" src="{% static 'images/pin.svg' %}" width="42" height="56" />
                     </a>
+                    {% endif %}
+                    {% if user.is_customer %}
                     <a href="{% url 'app:notifications' %}">
                     <img class="change-my-color {% if request.path == '/notifications/' %}active{% endif %}" src="{% static 'images/notif.svg' %}" width="55" height="55" />
                     </a>
+                    {% endif %}
                     <a href="{% url 'users:profile' %}">
                     <img class="change-my-color {% if request.path == '/user/' or request.path == '/user/login/' or request.path == '/user/register/' %}active{% endif %}" src="{% static 'images/profile.svg' %}" width="55" height="55" />
                     </a>

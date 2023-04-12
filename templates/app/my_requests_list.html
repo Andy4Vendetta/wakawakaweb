@@ -1,20 +1,35 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-    Main
+    Ваши заказы
 {% endblock %}
 {% block content %}
-    <ul> 
-        {% for request in requests %}
-            <li><a href="{{ request.get_edit_url }}">{{ request }}</a></li>
-        {% endfor %}
-    </ul> 
-    <br>
-    <hr>
-    <br>
-    <ul> 
-        {% for request in requests_archived %}
-            <li><a href="{{ request.get_edit_url }}">{{ request }}</a></li>
-        {% endfor %}
-    </ul> 
+<div class="conta" style="padding: 35px; height: fit-content;">
+    Ваши заказы
+    <hr style="margin: 20px;">
+    {% for request in requests %}
+    <a style="text-decoration:none; color: black;" href="{{ request.get_edit_url }}">
+        <div style="display: flex; padding-left: 30px; padding-right: 30px;">
+        <img src="{% static 'images/profile.svg' %}" width="55" height="55" />
+        <p style="padding: 20px; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">{{ request.title }}</p>
+        <div style="display: flex; float: right; margin-left: auto; padding: 10px;">
+            <p style="padding: 10px; font-family: Arial, Helvetica, sans-serif; font-weight: bold; color: #4FA098;">{{ request.price_from}} - {{ request.price_to}} руб.</p>
+            <img src="{% static 'images/money.svg' %}" width="45" height="45">
+        </div>
+    </div></a><hr style="margin: 20px;">
+    {% endfor %} <br>
+    Ваши закрытые заказы
+    <hr style="margin: 20px;">
+    {% for request in requests_archived %}
+    <a style="text-decoration:none; color: black;" href="{{ request.get_edit_url }}">
+        <div style="display: flex; padding-left: 30px; padding-right: 30px;">
+        <img src="{% static 'images/profile.svg' %}" width="55" height="55" />
+        <p style="padding: 20px; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">{{ request.title }}</p>
+        <div style="display: flex; float: right; margin-left: auto; padding: 10px;">
+            <p style="padding: 10px; font-family: Arial, Helvetica, sans-serif; font-weight: bold; color: #4FA098;">{{ request.price_from}} - {{ request.price_to}} руб.</p>
+            <img src="{% static 'images/money.svg' %}" width="45" height="45">
+        </div>
+    </div></a>
+    {% endfor %}
+</div>
 {% endblock %}

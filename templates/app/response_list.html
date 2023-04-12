@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-    Main
+    Ваши отклики
 {% endblock %}
 {% block content %}
-<ul>
+<div class="conta" style="padding: 35px; height: fit-content;">
+    Ваши отклики
+    <hr style="margin: 20px;">
     {% for response in responses %}
-    <li><a href="{{ response.get_absolute_url }}">{{ response }}</a></li>
-{% endfor %}
-</ul>       
+    <a style="text-decoration:none; color: black;" href="{{ response.service_request.get_absolute_url }}">
+        <div style="display: flex; padding-left: 30px; padding-right: 30px;">
+        <img src="{% static 'images/profile.svg' %}" width="55" height="55" />
+        <p style="padding: 20px; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">{{ response.text }}</p>
+    </div></a><hr style="margin: 20px;">
+    {% endfor %}       
 {% endblock %}

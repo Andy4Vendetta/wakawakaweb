@@ -39,12 +39,11 @@
         </div>
         <br><br>
         <hr style="margin: 20px;">
-        <ul>
             {% for request in filter.qs %}
             <a style="text-decoration:none; color: black;" href="{{ request.get_absolute_url }}">
                 <div style="display: flex; padding-left: 30px; padding-right: 30px;">
                 <img src="{% static 'images/profile.svg' %}" width="55" height="55" />
-                <p style="padding: 20px; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">{{ request.title }} <a href="{{ request.get_url_to_create_bookmark }}">Добавить в закладки</a></p>
+                <p style="padding: 20px; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">{{ request.title }} {% if not user.is_customer %}<a href="{{ request.get_url_to_create_bookmark }}">Добавить в закладки</a>{% endif %}</p>
                 <div style="display: flex; float: right; margin-left: auto; padding: 10px;">
                     <p style="padding: 10px; font-family: Arial, Helvetica, sans-serif; font-weight: bold; color: #4FA098;">{{ request.price_from}} - {{ request.price_to}} руб.</p>
                     <img src="{% static 'images/money.svg' %}" width="45" height="45">
@@ -52,6 +51,5 @@
             </div></a>
             <hr style="margin: 20px;">
             {% endfor %}
-        </ul>
 </div>
 {% endblock %}

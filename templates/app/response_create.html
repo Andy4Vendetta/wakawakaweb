@@ -1,12 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-    Main
+    Откликнуться
 {% endblock %}
 {% block content %}
+<div class="conta" style="padding: 35px; height: fit-content;">
+    Откликнуться
+    <hr style="margin: 20px;">
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Откликнуться</button>
+        <br>
+        <button type="submit" class="regbutton" style="margin-right: 2vh; text-align: center;">Откликнуться</button>
     </form>
 {% endblock %}

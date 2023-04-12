@@ -1,14 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-    Main
+    Редактирование заказа
 {% endblock %}
 {% block content %}
+<div class="conta" style="padding: 35px; height: fit-content;">
+    Редактирование заказа
+    <hr style="margin: 20px;">
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Изменить</button>
-    </form>
-    <a href="{{ request.get_delete_url }}">Удалить</a>
-    <a href="{{ request.get_archived_url }}">Завершить</a>
+        {{ form.as_p }} <br>
+        <button type="submit" class="regbutton" style="margin-right: 2vh; text-align: center; background: #088345;">Изменить</button>
+    </form><br>
+    <div class="regbutton" style="margin-right: 2vh; text-align: center; background: #e02c2c;"><a href="{{ request.get_delete_url }}" style="color: white; text-decoration:none;">Удалить</a></div>
+    <br>
+    <div class="regbutton" style="margin-right: 2vh; text-align: center"><a href="{{ request.get_archived_url }}" style="color: white; text-decoration:none;">Завершить заказ</a></div>
 {% endblock %}
