@@ -1,25 +1,58 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}
-    Main
+    Список заказов
 {% endblock %}
 {% block content %}
-<div class="conta">
+<div class="conta" style="padding: 35px; height: fit-content;">
     <form method="GET">
         {{ filter.form.as_p }}
-        <button type="submit">Искать</button>
+        <br>
+        <button class="regbutton" style="text-align: center; width: fit-content;" type="submit">Искать</button>
     </form>
     <hr style="margin: 20px;">
-        {% for category in categories %}
-            <a href="{{ category.get_absolute_url}}">{{ category }}</a>
-        {% endfor %}
-        <a href="{% url 'app:request_list' %}">Все</a>
+        <p>Категории:</p>
+        <br>
+        <div style="display: flex;">
+        {% if request.path == '/requests/' %}
+        <div class="regbutton" style="display: flex; text-align: center; width: fit-content; margin-right: 15px;">
+            <a style="color: black; text-decoration:none;" href="{% url 'app:request_list' %}">Все</a>
+        </div>
+        {% endif %}
+        {% if not request.path == '/requests/' %}
+        <div class="loginbutton" style="display: flex; text-align: center; width: fit-content; margin-right: 15px;">
+            <a style="color: black; text-decoration:none;" href="{% url 'app:request_list' %}">Все</a>
+        </div>
+        {% endif %}
+            {% for category in categories %}
+                    {% if request.path == '/requests/filter/ + {{id}}' %}
+                        <div class="regbutton" style="display: flex; text-align: center; width: fit-content; margin-right: 15px;">
+                            <a style="color: black; text-decoration:none;" href="{{ category.get_absolute_url}}">{{ category }}</a>
+                        </div>
+                    {% endif %}
+                    {% if not request.path == '/requests/filter/' %}
+                        <div class="loginbutton" style="display: flex; text-align: center; width: fit-content; margin-right: 15px;">
+                            <a style="color: black; text-decoration:none;" href="{{ category.get_absolute_url}}">{{ category }}</a>
+                            <p>{{ request.path }}</p>
+                            <p>{{ category.id }}</p>
+                        </div>
+                    {% endif %}
+            {% endfor %}
+        </div>
+        <br><br>
         <ul>
             {% for request in filter.qs %}
-            <li><a href="{{ request.get_absolute_url }}">{{ request }}</a></li>
+            <a style="text-decoration:none; color: black;" href="{{ request.get_absolute_url }}">
+            <div style="display: flex; padding-left: 30px; padding-right: 30px;">
+                <img src="{% static 'images/profile.svg' %}" width="55" height="55" />
+                <p style="padding: 20px; font-family: Arial, Helvetica, sans-serif; font-weight: bold;">{{ request.title }}</p>
+                <div style="display: flex; float: right; margin-left: auto; padding: 10px;">
+                    <p style="padding: 10px; font-family: Arial, Helvetica, sans-serif; font-weight: bold; color: #4FA098;">{{ request.price_from}} - {{ request.price_to}} руб.</p>
+                    <img src="{% static 'images/money.svg' %}" width="45" height="45">
+                </div>
+            </div></a>
+            <hr style="margin: 20px;">
             {% endfor %}
         </ul>
 </div>
-
-
 {% endblock %}

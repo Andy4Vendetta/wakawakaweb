@@ -19,9 +19,12 @@
                     </a>
                 </left>
                 <right>
+                    {% if user.is_customer %}
                     <a href="{% url 'app:request_create' %}">
-                    <img class="change-my-color {% if request.path == '/requests/create/' %}active{% endif %}" src="{% static 'images/add.svg' %}" width="48" height="61" />
+                        <img class="change-my-color {% if request.path == '/requests/create/' %}active{% endif %}" src="{% static 'images/add.svg' %}" width="48" height="61" />
                     </a>
+                    {% endif %}
+
                     <a href="{% url 'app:request_list' %}">
                         <img class="change-my-color {% if request.path == '/requests/' %}active{% endif %}" src="{% static 'images/orders.svg' %}" width="41" height="53" />
                     </a>

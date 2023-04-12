@@ -5,5 +5,8 @@
 {% endblock %}
 {% block content %}
     {{ request }}
+    {{ request.description }}
+    {% if not user.is_customer %}
     <a href="{{ request.get_url_to_create_response }}">Откликнуться</a>
+    {% endif %}
 {% endblock %}
