@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect
 
-from .models import Category, ServiceRequest, ServiceResponse
+from .models import Category, ServiceRequest, ServiceResponse, Bookmark
 from .forms import ServiceRequestForm, ServiceResponseForm, ServiceRequestSnippetFilter
 
 
@@ -149,6 +149,7 @@ class ServiceRequestEditView(LoginRequiredMixin, SingleObjectMixin, FormView):
     
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
+        print(request.META.get('HTTP_REFERER'))
         return super().get(request, *args, **kwargs)
     
     def post(self, request, *args, **kwargs):
@@ -187,3 +188,45 @@ class ServiceRequestArchivedView(LoginRequiredMixin, SingleObjectMixin, Redirect
         obj.archived = True
         obj.save()
         return super().get(request, *args, **kwargs)
+    
+    
+class BookmarksListView(LoginRequiredMixin, ListView):
+    model = ServiceRequest
+    template_name = 'app/bookmark_list.html'
+    context_object_name = 'requests'
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(bookmarks__user=self.request.user)
+    
+    
+class BookmarkCreateView(LoginRequiredMixin, SingleObjectMixin, RedirectView):
+    model = ServiceRequest
+    
+    def get(self, request, *args, **kwargs,):
+        service_request = self.get_object()
+        user = self.request.user
+        Bookmark.objects.create(
+            service_request=service_request,
+            user=user
+        )
+        return super().get(request, *args, **kwargs)
+    
+    def get_redirect_url(self, *args, **kwargs):
+        url = self.request.META.get('HTTP_REFERER') or reverse_lazy('app:response_list')
+        return url
+    
+    
+class BookmarkDeleteView(LoginRequiredMixin, SingleObjectMixin, RedirectView):
+    model = Bookmark
+    
+    def get(self, request, *args, **kwargs,):
+        obj = self.get_object()
+        if not obj.user == self.request.user:
+            return redirect('app:main')
+        obj.delete()
+        return super().get(request, *args, **kwargs)
+    
+    def get_redirect_url(self, *args, **kwargs):
+        url = self.request.META.get('HTTP_REFERER') or reverse_lazy('app:bookmarks')
+        return url

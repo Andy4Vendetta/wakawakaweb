@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Main
+{% endblock %}
+{% block content %}
+    <ul> 
+        {% for request in requests %}
+            <li><a href="{{ request.get_absolute_url }}">{{ request }}</a><a href="{{ request.get_url_to_delete_bookmark }}">Удалить закладку</a></li>
+        {% endfor %}
+    </ul> 
+{% endblock %}

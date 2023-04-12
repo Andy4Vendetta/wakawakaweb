@@ -45,4 +45,13 @@ urlpatterns = [
      path('responses/create/<int:pk>/',
          views.ServiceResponseCreateView.as_view(), 
          name='response_create'),
+     path('bookmarks/',
+          views.BookmarksListView.as_view(),
+          name='bookmarks'),
+     path('bookmarks/create/<int:pk>',
+          views.BookmarkCreateView.as_view(),
+          name='bookmark_create'),
+     path('bookmarks/delete/<int:pk>',
+          views.BookmarkDeleteView.as_view(),
+          name='bookmark_delete'),
 ]

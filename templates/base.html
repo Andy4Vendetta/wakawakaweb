@@ -28,7 +28,7 @@
                     <a href="{% url 'app:request_list' %}">
                         <img class="change-my-color {% if request.path == '/requests/' %}active{% endif %}" src="{% static 'images/orders.svg' %}" width="41" height="53" />
                     </a>
-                    <a href="{% url 'app:info' %}">
+                    <a href="{% url 'app:bookmarks' %}">
                     <img class="change-my-color {% if request.path == '/pins' %}active{% endif %}" src="{% static 'images/pin.svg' %}" width="42" height="56" />
                     </a>
                     <a href="{% url 'app:notifications' %}">

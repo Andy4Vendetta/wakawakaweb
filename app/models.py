@@ -87,6 +87,12 @@ class ServiceRequest(models.Model):
     
     def get_archived_url(self):
         return reverse('app:my_requests_archived', kwargs={'pk':self.pk})
+    
+    def get_url_to_create_bookmark(self):
+        return reverse('app:bookmark_create', kwargs={'pk':self.pk})
+    
+    def get_url_to_delete_bookmark(self):
+        return reverse('app:bookmark_delete', kwargs={'pk':self.bookmarks.first().pk})
 
 class ServiceResponse(models.Model):
     service_request = models.ForeignKey(
@@ -124,3 +130,20 @@ class ServiceResponse(models.Model):
         
     def get_absolute_url(self):
         return reverse('app:response_detail', kwargs={'pk':self.pk})
+    
+
+class Bookmark(models.Model):
+    user = models.ForeignKey(
+        verbose_name='пользователь',
+        blank=False,
+        to=get_user_model(),
+        related_name='bookmarks',
+        on_delete=models.CASCADE,
+    )
+    service_request = models.ForeignKey(
+        verbose_name='запрос на услугу',
+        blank=False,
+        to=ServiceRequest,
+        related_name='bookmarks',
+        on_delete=models.CASCADE,
+    )
