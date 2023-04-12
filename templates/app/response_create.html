@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block title %}
     Откликнуться
 {% endblock %}
@@ -9,7 +10,7 @@
     <hr style="margin: 20px;">    
 <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         <br>
         <button type="submit" class="regbutton" style="margin-right: 2vh; text-align: center;">Откликнуться</button>
     </form>

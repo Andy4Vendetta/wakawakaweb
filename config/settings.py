@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'phonenumber_field',
     'django_filters',
+    'crispy_forms',
     'users',
     'app',
 ]
@@ -126,3 +127,7 @@ EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'wakawakaweb@gmail.com'
+
+
+# Django-cripy-forms
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -60,6 +60,7 @@ class User(AbstractBaseUser):
         blank=True,
     )
     phone_number = PhoneNumberField(
+        verbose_name='номер телефона',
         blank=True,
     )
     description = models.TextField(

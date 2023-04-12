@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block title %}
     Профиль
 {% endblock %}
@@ -9,7 +10,7 @@
     <hr style="margin: 20px;">
     <form action = "" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         <button class="regbutton" style=" display: flex; color: rgb(255, 255, 255); text-decoration:none; text-align: center; width: fit-content; margin-right: 15px;" type="submit">Изменить</button>
     </form>
 </div>

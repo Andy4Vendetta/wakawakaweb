@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block title %}
     Список заказов
 {% endblock %}
 {% block content %}
 <div class="conta" style="padding: 35px; height: fit-content;">
     <form method="GET">
-        {{ filter.form.as_p }}
+        {{ filter.form|crispy }}
         <br>
         <button class="regbutton" style="text-align: center; width: fit-content;" type="submit">Искать</button>
     </form>

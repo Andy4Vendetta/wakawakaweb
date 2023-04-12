@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block title %}
     Создание заказа
 {% endblock %}
@@ -9,7 +10,7 @@
         Создание заказа
         <hr style="margin: 20px;">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         <button class="regbutton" style="display: flex; text-align: center; width: fit-content; margin-right: 15px;" 
         style="text-decoration:none;" href="{% url 'app:request_list' %}" type="submit">
             Создать

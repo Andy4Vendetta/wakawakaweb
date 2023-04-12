@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 {% block title %}
     Редактирование заказа
 {% endblock %}
@@ -9,7 +10,7 @@
     <hr style="margin: 20px;">
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }} <br>
+        {{ form|crispy }} <br>
         <button type="submit" class="regbutton" style="margin-right: 2vh; text-align: center; background: #088345;">Изменить</button>
     </form><br>
     <div class="regbutton" style="margin-right: 2vh; text-align: center; background: #e02c2c;"><a href="{{ request.get_delete_url }}" style="color: white; text-decoration:none;">Удалить</a></div>

@@ -4,3 +4,4 @@ Pillow
 django-phonenumber-field[phonenumbers]
 gunicorn
 django-filter
+django-crispy-forms
