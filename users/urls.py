@@ -6,8 +6,7 @@ from django.contrib.auth.views import (PasswordChangeView,
                                        PasswordChangeDoneView, 
                                        LoginView, LogoutView,)
                             
-from .views import RegisterView, ProfileView, password_reset_request
-from .forms import PasswordChangeForm
+from .views import RegisterView, ProfileView, PasswordResetRequestView
 
 
 urlpatterns = [ 
@@ -36,7 +35,7 @@ urlpatterns = [
                 template_name='users/password_change_done.html'),
             name='password_change_done'),
      path('password_reset/', 
-          password_reset_request, 
+            PasswordResetRequestView.as_view(), 
           name="password_reset"),
      path('password_reset/done/', 
           auth_views.PasswordResetDoneView.as_view(
@@ -45,9 +44,10 @@ urlpatterns = [
      path('reset/<uidb64>/<token>/', 
           auth_views.PasswordResetConfirmView.as_view(
                template_name="users/password_reset_confirm.html",
-               success_url = reverse_lazy('users:password_reset_complete')), 
+               success_url=reverse_lazy('users:password_reset_complete'),
+               post_reset_login=True), 
           name='password_reset_confirm'),
-     path('reset/done/', 
+     path('reset/complete/', 
           auth_views.PasswordResetCompleteView.as_view(
                template_name='users/password_reset_complete.html'), 
           name='password_reset_complete'), 
