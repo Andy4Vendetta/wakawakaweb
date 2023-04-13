@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.urls import reverse
+from .utils import embed_url
 
 
 class Category(models.Model):
@@ -83,7 +84,10 @@ class ServiceRequest(models.Model):
         
         if not self.customer.is_customer:
             raise ValidationError('Пользователь должен быть заказчиком')
-        
+        self.video = embed_url(self.video)
+
+
+  
     def get_absolute_url(self):
         return reverse('app:request_detail', kwargs={'pk':self.pk})
         
