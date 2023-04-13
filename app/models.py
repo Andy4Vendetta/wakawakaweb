@@ -68,11 +68,13 @@ class ServiceRequest(models.Model):
     )
     image = models.ImageField(
         verbose_name='фото',
-        upload_to='request_images/'
+        upload_to='request_images/',
+        blank=True,
     )
     video = models.URLField(
         verbose_name='ссылка на видео',
         max_length=100,
+        blank=True,
     )
     
     def __str__(self) -> str:
@@ -135,11 +137,13 @@ class ServiceResponse(models.Model):
     )
     image = models.ImageField(
         verbose_name='фото',
-        upload_to='response_images/'
+        upload_to='response_images/',
+        blank=True,
     )
     video = models.URLField(
         verbose_name='ссылка на видео',
         max_length=100,
+        blank=True,
     )
     
     def __str__(self):

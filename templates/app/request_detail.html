@@ -17,14 +17,18 @@
             <p>Срок выполнения: {{ request.term }} дней</p><br>
             <p>Описание: {{ request.description }}</p><br>
         </div>
-        <div style="margin: 7vh;">
-            <iframe width="320" height="192" style="border-radius: 15px;"
-            src="{{ request.video }}">
-            </iframe> 
-        </div>
-        <div style="display: flex; float: right; margin-left: auto; margin-bottom: 50px;">
-            <img src="{{ request.image.url }}" style="max-width: 300px; height: fit-content; margin-left: auto;">
-        </div>
+        {% if request.video %}
+            <div style="margin: 7vh;">
+                <iframe width="320" height="192" style="border-radius: 15px;"
+                src="{{ request.video }}">
+                </iframe> 
+            </div>
+        {% endif %}
+        {% if request.image %}
+            <div style="display: flex; float: right; margin-left: auto; margin-bottom: 50px;">
+                <img src="{{ request.image.url }}" style="max-width: 300px; height: fit-content; margin-left: auto;">
+            </div>
+        {% endif %}
     </div>
     {% if not user.is_customer %}
     <div style="display: flex; float: right; margin-left: auto;">
