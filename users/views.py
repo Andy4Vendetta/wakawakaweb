@@ -55,12 +55,12 @@ def password_reset_request(request):
 			associated_users = get_user_model().objects.filter(Q(email=data))
 			if associated_users.exists():
 				for user in associated_users:
-					subject = "Password Reset Requested"
+					subject = "Запрошен сброс пароля"
 					email_template_name = "users/password_reset_email.txt"
 					c = {
 					"email":user.email,
 					'domain':'127.0.0.1:8000',
-					'site_name': 'Website',
+					'site_name': 'WakaWakaWeb',
 					"uid": urlsafe_base64_encode(force_bytes(user.pk)),
 					"user": user,
 					'token': default_token_generator.make_token(user),
