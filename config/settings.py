@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'phonenumber_field',
     'django_filters',
     'crispy_forms',
+    'crispy_bootstrap4',
     'users',
     'app',
 ]
@@ -135,4 +136,5 @@ DEFAULT_FROM_EMAIL = 'wakawakaweb@gmail.com'
 
 
 # Django-cripy-forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
