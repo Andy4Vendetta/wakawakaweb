@@ -12,9 +12,16 @@
     {% csrf_token %}
     {{ form|crispy }}
     <button type="submit" class="regbutton" style=" display: flex; color: rgb(255, 255, 255); text-decoration:none; text-align: center; width: fit-content; margin-right: 15px;">Login</button>
+    <hr style="margin: 20px;"><br><p>Ещё не зарегистрированы?</p>
     <a href="{% url 'users:register' %}" style="text-decoration:none; margin: 20px;">
         <div class="regbutton" style=" display: flex; color: rgb(255, 255, 255); text-decoration:none; text-align: center; width: fit-content; margin-right: 15px;">
             Регистрация
+        </div>
+        </a>
+    <hr style="margin: 20px;"><br><p>Забыли пароль?</p>
+    <a href="{% url 'users:password_reset' %}" style="text-decoration:none; margin: 20px;">
+        <div class="regbutton" style=" display: flex; color: rgb(255, 255, 255); text-decoration:none; text-align: center; width: fit-content; margin-right: 15px;">
+            Сброс пароля
         </div>
         </a>
 </form>
