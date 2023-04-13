@@ -54,7 +54,6 @@ class ServiceRequestCreateView(LoginRequiredMixin, FormView):
         form = self.form_class(self.request.POST or None,
                                self.request.FILES or None,
                                 user=self.request.user)
-        print(self.request.FILES)
         return form
     
     def form_valid(self, form):

@@ -6,14 +6,19 @@ from django.urls import reverse_lazy
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
+# Env
 env = environ.Env()
 env.read_env(os.path.join(BASE_DIR, '.env'))
 
+
+# Main settings
 SECRET_KEY = env.str('SECRET_KEY', 'e@z(&g-mg(z3ypg@@p)43p+=!%xqc156+z)y2td9wm!=%nnee=')
 
 DEBUG = env.bool('DEBUG', True)
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['*'])
+
 
 # Application definition
 INSTALLED_APPS = [

@@ -19,6 +19,7 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('app:request_list_filtered', kwargs={'pk':self.pk})
 
+
 class ServiceRequest(models.Model):
     title = models.CharField(
         verbose_name='заголовок',
@@ -80,13 +81,10 @@ class ServiceRequest(models.Model):
     def clean(self) -> None:
         super().clean()
         if not self.price_from < self.price_to:
-            raise ValidationError('Введите корректную сумму')
-        
+            raise ValidationError('Введите корректную сумму')   
         if not self.customer.is_customer:
             raise ValidationError('Пользователь должен быть заказчиком')
         self.video = embed_url(self.video)
-
-
   
     def get_absolute_url(self):
         return reverse('app:request_detail', kwargs={'pk':self.pk})
@@ -108,6 +106,7 @@ class ServiceRequest(models.Model):
     
     def get_url_to_delete_bookmark(self):
         return reverse('app:bookmark_delete', kwargs={'pk':self.bookmarks.first().pk})
+
 
 class ServiceResponse(models.Model):
     service_request = models.ForeignKey(

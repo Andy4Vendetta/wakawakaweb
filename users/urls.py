@@ -1,12 +1,13 @@
 from django.urls import path
+from django.urls import reverse_lazy
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.views import (PasswordChangeView, 
                                        PasswordChangeDoneView, 
                                        LoginView, LogoutView,)
-from django.urls import reverse_lazy
-from django.contrib.auth import views as auth_views
                             
 from .views import RegisterView, ProfileView, password_reset_request
-from .forms import ChangePasswordForm
+from .forms import PasswordChangeForm
 
 
 urlpatterns = [ 
@@ -17,21 +18,22 @@ urlpatterns = [
             RegisterView.as_view(), 
             name='register'),
     path('login/', 
-            LoginView.as_view(template_name='users/login.html',
-                              redirect_authenticated_user=True),
+            LoginView.as_view(
+                template_name='users/login.html',
+                redirect_authenticated_user=True),
             name='login'),
     path('logout/', 
             LogoutView.as_view(),  
             name='logout'),
-    path('password-change/', 
+    path('password_change/', 
             PasswordChangeView.as_view(
-                    template_name='users/password_change.html',
-                    form_class=ChangePasswordForm,
-                    success_url=reverse_lazy('users:password_change_done')),
+                template_name='users/password_change.html',
+                form_class=PasswordChangeForm,
+                success_url=reverse_lazy('users:password_change_done')),
             name='password_change'),
-    path('password-change-done/', 
+    path('password_change_done/', 
             PasswordChangeDoneView.as_view(
-                    template_name='users/password_change_done.html'),
+                template_name='users/password_change_done.html'),
             name='password_change_done'),
      path('password_reset/', 
           password_reset_request, 

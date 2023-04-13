@@ -1,8 +1,7 @@
 from django import forms
-from django.core.exceptions import ValidationError
 from django_filters import FilterSet
 
-from .models import Category, ServiceRequest, ServiceResponse
+from .models import ServiceRequest, ServiceResponse
 
 
 class ServiceRequestForm(forms.ModelForm):
@@ -29,6 +28,7 @@ class ServiceResponseForm(forms.ModelForm):
             'user':forms.HiddenInput(),
             'watched':forms.HiddenInput(),
         }
+        
     def __init__(self, data, files, service_request=None, user=None, *args, **kwargs):
         super(ServiceResponseForm, self).__init__(data, files, *args, **kwargs)
         self.fields['service_request'].initial = service_request
