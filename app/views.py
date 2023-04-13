@@ -72,6 +72,19 @@ class ServiceResponseListView(LoginRequiredMixin, ListView):
             return queryset.filter(service_request__customer=self.request.user)
         return queryset.filter(user=self.request.user)
     
+
+class ServiceResponseDetailView(LoginRequiredMixin, DetailView):
+    model = ServiceResponse
+    template_name = 'app/response_detail.html'
+    context_object_name = 'response'
+    
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        obj.watched = True
+        obj.save()
+        print(obj.watched)
+        return obj
+    
     
 class ServiceResponseCreateView(LoginRequiredMixin, SingleObjectMixin, FormView):
     model = ServiceRequest
@@ -106,11 +119,15 @@ class NotificationsView(LoginRequiredMixin, ListView):
     
     def get_queryset(self):
         queryset = self.model.objects.filter(
-            service_request__customer=self.request.user,
-            watched=False
+            service_request__customer=self.request.user
         )
         return queryset
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['responses_watched'] = context['responses'].filter(watched=True)
+        context['responses'] = context['responses'].filter(watched=False)
+        return context
     
 class MyRequestsListView(LoginRequiredMixin, ListView):
     model = ServiceRequest
