@@ -7,10 +7,13 @@
 <div class="conta" style="padding: 35px; height: fit-content;">
     Детали заказа
     <hr style="margin: 20px;">
-    <p>Исполнитель: {{ response.user }}</p><br>
-    <p>Сообщение: {{ response.text }}</p><br>
+    <div style="display: flex; width: 100%;">
+        <div>
+            <p>Исполнитель: {{ response.user }}</p><br>
+            <p>Сообщение: {{ response.text }}</p><br>
+        </div>
+
     {% if response.video %}
-        {{ response.video }}
         <div style="margin: 7vh;">
             <iframe width="320" height="192" style="border-radius: 15px;"
             src="{{ response.video }}">
@@ -22,4 +25,5 @@
             <img src="{{ response.image.url }}" style="max-width: 300px; height: fit-content; margin-left: auto;">
         </div>
     {% endif %}
+    </div>
 {% endblock %}
