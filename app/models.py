@@ -153,6 +153,7 @@ class ServiceResponse(models.Model):
         super().clean()
         if self.user.is_customer:
             raise ValidationError('Пользователь должен быть исполнителем')
+        self.video = embed_url(self.video)
         
     def get_absolute_url(self):
         return reverse('app:response_detail', kwargs={'pk':self.pk})

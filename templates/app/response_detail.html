@@ -10,6 +10,7 @@
     <p>Исполнитель: {{ response.user }}</p><br>
     <p>Сообщение: {{ response.text }}</p><br>
     {% if response.video %}
+        {{ response.video }}
         <div style="margin: 7vh;">
             <iframe width="320" height="192" style="border-radius: 15px;"
             src="{{ response.video }}">

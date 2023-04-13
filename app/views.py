@@ -82,7 +82,7 @@ class ServiceResponseDetailView(LoginRequiredMixin, DetailView):
         obj = super().get_object(queryset)
         obj.watched = True
         obj.save()
-        print(obj.watched)
+        print(obj.video, obj.image.url)
         return obj
     
     
