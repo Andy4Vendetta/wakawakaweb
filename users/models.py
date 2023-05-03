@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from phonenumber_field.modelfields import PhoneNumberField
 
+
 class UserManager(BaseUserManager):
     def create_user(self, email, password=None):
         if not email:
@@ -82,7 +83,7 @@ class User(AbstractBaseUser):
         default=False,
         blank=False,
     )
-    
+
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
@@ -92,14 +93,14 @@ class User(AbstractBaseUser):
 
     def has_module_perms(self, app_label):
         return True
-    
+
     def __str__(self):
         return self.email
 
     @property
     def is_customer(self):
         return self.customer
-    
+
     @property
     def is_staff(self):
         return self.staff
@@ -107,7 +108,7 @@ class User(AbstractBaseUser):
     @property
     def is_admin(self):
         return self.admin
-    
+
     class Meta:
         verbose_name = 'пользователь'
         verbose_name_plural = 'пользователи'

@@ -3,13 +3,12 @@ from django.views.generic import CreateView, FormView
 from django.contrib.auth import login, get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth.views import PasswordResetCompleteView
 from django.urls import reverse_lazy
 from django.core.mail import send_mail, BadHeaderError
 from django.http import HttpResponse
 from django.template.loader import render_to_string
-from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 from django.conf import settings
 
 from .forms import RegisterForm, ProfileForm, ResetPasswordForm
@@ -41,7 +40,7 @@ class ProfileView(LoginRequiredMixin, FormView):
        form = self.form_class(self.request.POST or None,
            instance=self.request.user)
        return form
-   
+
    def form_valid(self, form):
        form.save()
        return super().form_valid(form)
@@ -54,7 +53,7 @@ class PasswordResetRequestView(FormView):
         context = super().get_context_data(**kwargs)
         context['password_reset_form'] = context.pop('form')
         return context
-    
+
     def form_valid(self, form):
         subject = "Запрошен сброс пароля"
         email_template_name = "users/password_reset_email.txt"
@@ -63,7 +62,6 @@ class PasswordResetRequestView(FormView):
         tags = {
         "email":user.email,
         'domain':settings.ALLOWED_HOSTS[0],
-        'site_name': 'WakaWakaWeb',
         "uid": urlsafe_base64_encode(force_bytes(user.pk)),
         "user": user,
         'token': default_token_generator.make_token(user),

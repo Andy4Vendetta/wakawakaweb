@@ -10,26 +10,26 @@ class UserManagerTests(TestCase):
                           user_create,
                           email='',
                           password='12test12')
-    
+
     def test_create_user(self):
         user = get_user_model().objects.create_user(email='test@example.com',
                                                     password='12test12')
         self.assertTrue(isinstance(user, get_user_model()))
-    
+
     def test_create_staffuser(self):
         user = get_user_model().objects.create_staffuser(email='test@example.com',
                                                     password='12test12')
         self.assertTrue(isinstance(user, get_user_model()))
         self.assertEqual(user.staff, True)
-        
+
     def test_create_superuser(self):
         user = get_user_model().objects.create_superuser(email='test@example.com',
                                                     password='12test12')
         self.assertTrue(isinstance(user, get_user_model()))
         self.assertEqual(user.staff, True)
         self.assertEqual(user.admin, True)
-        
-        
+
+
 
 class UserModelTests(TestCase):
     @classmethod

@@ -76,10 +76,10 @@ class ServiceRequest(models.Model):
         max_length=100,
         blank=True,
     )
-    
+
     def __str__(self) -> str:
         return f'{self.title} | {self.customer}'
-    
+
     def clean(self) -> None:
         super().clean()
         if not self.price_from < self.price_to:
@@ -87,25 +87,25 @@ class ServiceRequest(models.Model):
         if not self.customer.is_customer:
             raise ValidationError('Пользователь должен быть заказчиком')
         self.video = embed_url(self.video)
-  
+
     def get_absolute_url(self):
         return reverse('app:request_detail', kwargs={'pk':self.pk})
-        
+
     def get_url_to_create_response(self):
         return reverse('app:response_create', kwargs={'pk':self.pk})
-    
+
     def get_edit_url(self):
         return reverse('app:my_requests_edit', kwargs={'pk':self.pk})
-    
+
     def get_delete_url(self):
         return reverse('app:my_requests_delete', kwargs={'pk':self.pk})
-    
+
     def get_archived_url(self):
         return reverse('app:my_requests_archived', kwargs={'pk':self.pk})
-    
+
     def get_url_to_create_bookmark(self):
         return reverse('app:bookmark_create', kwargs={'pk':self.pk})
-    
+
     def get_url_to_delete_bookmark(self):
         return reverse('app:bookmark_delete', kwargs={'pk':self.bookmarks.first().pk})
 
@@ -145,19 +145,19 @@ class ServiceResponse(models.Model):
         max_length=100,
         blank=True,
     )
-    
+
     def __str__(self):
         return f'{self.user} | {self.service_request.title}'
-    
+
     def clean(self) -> None:
         super().clean()
         if self.user.is_customer:
             raise ValidationError('Пользователь должен быть исполнителем')
         self.video = embed_url(self.video)
-        
+
     def get_absolute_url(self):
         return reverse('app:response_detail', kwargs={'pk':self.pk})
-    
+
 
 class Bookmark(models.Model):
     user = models.ForeignKey(

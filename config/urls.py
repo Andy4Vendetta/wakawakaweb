@@ -8,7 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(('app.urls', 'app'), namespace='app')),
     path('user/', include(('users.urls', 'users'), namespace='users')),
-] 
+]
 
 
 urlpatterns += static(settings.STATIC_URL, 

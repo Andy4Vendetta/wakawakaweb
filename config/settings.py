@@ -38,6 +38,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -99,14 +100,19 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images, Fonts)
-STATIC_ROOT = os.path.join(BASE_DIR, 'collectedstatic')
-
-STATIC_URL = '/static/'
-
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'collectedstatic')
+
+STATIC_URL = '/static/'
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 
 # Media
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -128,14 +134,21 @@ LOGOUT_URL = reverse_lazy('users:logout')
 
 # Mail
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
 EMAIL_HOST = 'smtp.gmail.com'
+
 EMAIL_HOST_USER = 'wakawakaweb@gmail.com'
-EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD')
+
+EMAIL_HOST_PASSWORD = env.str('EMAIL_HOST_PASSWORD', '')
+
 EMAIL_PORT = 587
+
 EMAIL_USE_TLS = True
+
 DEFAULT_FROM_EMAIL = 'wakawakaweb@gmail.com'
 
 
 # Django-cripy-forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

@@ -12,7 +12,7 @@ class ServiceRequestForm(forms.ModelForm):
             'customer':forms.HiddenInput(),
             'archived':forms.HiddenInput(),
         }
-        
+
     def __init__(self, data, files, user=None, *args, **kwargs):
         super(ServiceRequestForm, self).__init__(data, files, *args, **kwargs)
         self.fields['customer'].initial = user
@@ -28,14 +28,14 @@ class ServiceResponseForm(forms.ModelForm):
             'user':forms.HiddenInput(),
             'watched':forms.HiddenInput(),
         }
-        
+
     def __init__(self, data, files, service_request=None, user=None, *args, **kwargs):
         super(ServiceResponseForm, self).__init__(data, files, *args, **kwargs)
         self.fields['service_request'].initial = service_request
         self.fields['user'].initial = user
         self.fields['watched'].initial = False
-        
-        
+
+
 class ServiceRequestSnippetFilter(FilterSet):
     class Meta:
         model = ServiceRequest
