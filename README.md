@@ -1,3 +1,14 @@
+# Info
+The project was created during participation in the [Hackathon "Code Rocks" 2023](https://vk.com/code_rocks_hack_2023) in the competence "development of a site / web application - a site service for finding service providers" among non-professionals.
+The final score **195,3/250.**
+
+**The project involved:**
+
+ - [AlexeiBoch](https://github.com/AlexeiBoch) - BackEnd
+ - [GravaTharg](https://github.com/GravaTharg) - DevOps, FrontEnd
+ - [M00nKate](https://github.com/M00nKate) - Designer, FrontEnd
+
+The site is currently available via this link - *https://hack.tharg.ru/*
 # Setup
 You can use `./setupUNIX.sh` (Linux/MacOS) or `./setupWIN.sh` (Windows) to automatically setup venv and download needed libs.
 All scripts (even for Windows) are written on bash, so use git-bash interpreter, if you are Windows user.
