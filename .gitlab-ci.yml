@@ -12,5 +12,6 @@ deploy-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
   environment: production
   script:
-    - docker network create my-django-network || docker run --env-file .env --name django-test -p 8080:8080 --network my-django-network -d django-test
+    - docker network create my-django-network || true
+    - docker run --env-file .env --name django-test -p 8080:8080 --network my-django-network -d django-test
     - echo "docker container started"
