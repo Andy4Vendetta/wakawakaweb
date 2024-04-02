@@ -1,0 +1,43 @@
+name: Django CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.6, 3.7, 3.8, 3.9]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run migrations
+      run: |
+        python3 manage.py collectstatic
+        python3 manage.py makemigrations
+        python3 manage.py migrate
+    - name: Run Tests
+      run: |
+        python manage.py test
+    - uses: actions/checkout@v2.4.0
+    - name: Build the images
+      run: |
+        docker build -t django-test .
+    - name: Start the container
+      run: |
+        docker network create my-django-network || true
+        docker run --env-file .env --name django-test -p 8080:8080 --network my-django-network -d django-test
